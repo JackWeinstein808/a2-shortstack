@@ -1,0 +1,28 @@
+body {
+  background:rgb(255, 255, 255);
+  color:rgb(143, 220, 243);
+}
+
+#addButton {
+  background: rgb(141, 234, 158);
+  border-radius: 10px;
+}
+
+#clearButton {
+  background: rgb(243, 95, 27);
+  border-radius: 10px;
+}
+
+#itemsList {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  margin-top: 0px;
+}
+
+#listTitle {
+  color: black;
+  font-size: 30px;
+  margin-left: 20px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
