@@ -37,22 +37,30 @@ const handleGet = function( request, response ) {
   }
 }
 
-const handlePost = function( request, response ) {
-  let dataString = ""
+const handlePost = function(request, response) {
+  let dataString = "";
 
-  request.on( "data", function( data ) {
-      dataString += data 
-  })
+  request.on("data", function(data) {
+      dataString += data;
+  });
 
-  request.on( "end", function() {
-      const newItemData = JSON.parse(dataString);
-      items.push(newItemData.addItem); // Add new item
+  request.on("end", function() {
+      try {
+          const newItemsData = JSON.parse(dataString); 
 
-      console.log("Items:", items);  // Log updated list of items
+          // Assuming newItemsData is an array of item objects:
+          items.push(...newItemsData); // Add the array of items
 
-      response.writeHead(200, "OK", {"Content-Type": "text/plain"});
-      response.end("Item added"); // A more informative response
-  })
+          console.log("Items:", items); 
+
+          response.writeHead(200, "OK", {"Content-Type": "text/plain"});
+          response.end("Items added"); 
+      } catch (error) {
+          console.error("Error parsing JSON:", error);
+          response.writeHead(400, "Bad Request"); 
+          response.end(); 
+      }
+  });
 }
 
 const handleClear = function(request, response) {

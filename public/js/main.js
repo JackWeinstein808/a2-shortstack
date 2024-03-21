@@ -1,27 +1,39 @@
 // FRONT-END (CLIENT) JAVASCRIPT HERE
 
-const addItem = async function( event ) {
-  // stop form submission from trying to load
-  // a new .html page for displaying results...
-  // this was the original browser behavior and still
-  // remains to this day
-  event.preventDefault()
-  
-  const input = document.querySelector( "#newItem" ),
-        json = { addItem: input.value },
-        body = JSON.stringify( json )
+const addItem = async function(event) {
+  event.preventDefault();
 
-  if(input.value != "") {
-    const response = await fetch( "/submit", {
-      method:"POST",
-      body 
-    })
-  
-    document.getElementById("newItem").value = "";
-    console.log("Item added!");
-    fetchItem();
+  const itemName = document.querySelector("#newItem").value;
+  //const itemPrice = document.querySelector("#itemPrice").value; 
+  const itemPrice = "5";
+  // ... Get values from other input fields
+
+  // Build the new item object
+  const newItem = {
+      item: itemName,
+      price: parseFloat(itemPrice) // Ensure price is a number
+      // ... Add other properties
+  };
+
+  // Construct the array for submission
+  const itemsData = [newItem]; // Start with a single item
+
+  const body = JSON.stringify(itemsData);
+
+  if (itemName !== "") { // Basic validation
+      const response = await fetch("/items", {
+          method: "POST",
+          body
+      });
+
+      // Clear input fields
+      document.getElementById("addItemForm").reset(); 
+
+      console.log("Items added!");
+      fetchItem(); // Update the list
   }
 }
+
 
 async function fetchItem() {
   try {
@@ -62,12 +74,22 @@ window.onload = function() {
 }
 
 function displayItems(items) {
-  const itemsList = document.getElementById('itemsList'); // Get the <ul> element
-  itemsList.innerHTML = ''; // Clear any existing list items
+  const itemsList = document.getElementById('itemsList');
+  itemsList.innerHTML = ''; 
 
   for (let i = 0; i < items.length; i++) {
-    const listItem = document.createElement('li');
-    listItem.textContent = items[i];
-    itemsList.appendChild(listItem);
+      const row = document.createElement('tr');
+
+      const itemCell = document.createElement('td');
+      itemCell.textContent = items[i].item; // Access the 'item' property
+      row.appendChild(itemCell);
+
+      const priceCell = document.createElement('td');
+      priceCell.textContent = items[i].price; // Access the 'price' property
+      row.appendChild(priceCell);
+
+      // ... add more cells for other properties ...
+
+      itemsList.appendChild(row);
   }
 }
