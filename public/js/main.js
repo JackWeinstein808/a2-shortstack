@@ -1,18 +1,33 @@
 // FRONT-END (CLIENT) JAVASCRIPT HERE
 
-const addItem = async function(event) {
+const addEntry = async function(event) {
   event.preventDefault();
 
-  const itemName = document.querySelector("#newItem").value;
-  //const itemPrice = document.querySelector("#itemPrice").value; 
-  const itemPrice = "5";
-  // ... Get values from other input fields
+  // ... Get values from all input fields
+  const service = document.querySelector("#service").value;
+  const date = document.querySelector("#date").value; 
+  const wages = document.querySelector("#wages").value;
+  const tips = document.querySelector("#tips").value;
+  const miles = document.querySelector("#miles").value;
+  const time = document.querySelector("#time").value;
+  const mpg = document.querySelector("#mpg").value;
+  const gasPrice = document.querySelector("#gasPrice").value;
 
   // Build the new item object
   const newItem = {
-      item: itemName,
-      price: parseFloat(itemPrice) // Ensure price is a number
-      // ... Add other properties
+      service: service,
+      date: date,
+      wages: wages,
+      tips: tips,
+      miles: miles,
+      time: time,
+      mpg: mpg,
+      gasPrice: gasPrice,
+      total: 0,
+      gasUsed: 0,
+      gasCost: 0,
+      income: 0,
+      hourlyPay: 0
   };
 
   // Construct the array for submission
@@ -20,7 +35,7 @@ const addItem = async function(event) {
 
   const body = JSON.stringify(itemsData);
 
-  if (itemName !== "") { // Basic validation
+  if (service !== "") { // Basic validation
       const response = await fetch("/items", {
           method: "POST",
           body
@@ -29,7 +44,7 @@ const addItem = async function(event) {
       // Clear input fields
       document.getElementById("addItemForm").reset(); 
 
-      console.log("Items added!");
+      console.log("Entry added!");
       fetchItem(); // Update the list
   }
 }
@@ -55,7 +70,7 @@ async function fetchItem() {
 window.onload = function() {
   fetchItem();
   const addButton = document.getElementById("addButton");
-  addButton.onclick = addItem;
+  addButton.onclick = addEntry;
 
   const clearButton = document.getElementById("clearButton");
   clearButton.addEventListener('click', () => {
@@ -77,19 +92,26 @@ function displayItems(items) {
   const itemsList = document.getElementById('itemsList');
   itemsList.innerHTML = ''; 
 
-  for (let i = 0; i < items.length; i++) {
-      const row = document.createElement('tr');
-
-      const itemCell = document.createElement('td');
-      itemCell.textContent = items[i].item; // Access the 'item' property
-      row.appendChild(itemCell);
-
-      const priceCell = document.createElement('td');
-      priceCell.textContent = items[i].price; // Access the 'price' property
-      row.appendChild(priceCell);
-
-      // ... add more cells for other properties ...
-
-      itemsList.appendChild(row);
+  function createCell(text) {
+    const cell = document.createElement('td');
+    //cell.style="background-color: rgb(200, 241, 162);"
+    cell.textContent = text;
+    return cell;
   }
+
+  for (let i = 0; i < items.length; i++) {
+    const row = document.createElement('tr');
+
+    const properties = ['service', 'date', 'wages', 'tips', 'miles', 'time', 'mpg', 'gasPrice', 'total', 'gasUsed', 'gasCost', 'income', 'hourlyPay'];
+
+    for (const property of properties) {
+        let cellText = items[i][property];
+        if (['wages', 'tips', 'gasPrice', 'total'].includes(property)) {
+            cellText = '$' + cellText; 
+        }
+        row.appendChild(createCell(cellText)); 
+    }
+
+    itemsList.appendChild(row);
+  } 
 }

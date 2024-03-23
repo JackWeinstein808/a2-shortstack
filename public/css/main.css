@@ -29,6 +29,31 @@ body {
 
 #dataTable {
   margin-left: 20px;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+#thMain, td {
+  padding: 5px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 20px;
+  color: black;
+  background-color: bisque;
+}
+
+#thDerived, #tdDerived {
+  padding: 5px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 20px;
+  color: black;
+  background-color: rgb(200, 241, 162);
+}
+
+#thTitle {
+  color: black;
+  font-size: 20px;
 }
 
 #defaultText {

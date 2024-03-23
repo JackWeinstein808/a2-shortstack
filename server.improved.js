@@ -48,8 +48,15 @@ const handlePost = function(request, response) {
       try {
           const newItemsData = JSON.parse(dataString); 
 
-          // Assuming newItemsData is an array of item objects:
-          items.push(...newItemsData); // Add the array of items
+          //newItemsData is an array of item objects:
+          const thisItem = newItemsData[0];
+          thisItem.total = parseInt(thisItem.wages, 10) + parseInt(thisItem.tips, 10); //compute total earnings
+          thisItem.gasUsed = parseInt(thisItem.miles, 10) / parseInt(thisItem.mpg, 10); //compute amount of gas used
+          thisItem.gasCost = thisItem.gasUsed * parseInt(thisItem.gasPrice, 10); //compute cost of gas
+          thisItem.income = thisItem.toal - thisItem.gasCost; //compute income
+          thisItem.hourlyPay = thisItem.income/(parseInt(thisItem.time, 10)/60); //compute hourly pay
+          
+          items.push(thisItem); // Add the item
 
           console.log("Items:", items); 
 

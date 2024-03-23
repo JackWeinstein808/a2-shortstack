@@ -10,17 +10,49 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
   <body>
-    <form id="addItemForm">
-      <input type="text" id="newItem">
-      <button id="addButton">Add Item</button>
-      <button id="clearButton" type="button">Clear List</button>
+    <table style="margin-left: 20px;">
+      <thead>
+        <tr>
+            <th id="thTitle" style="padding-left: 20px;">Service</th> 
+            <th id="thTitle" style="padding-left: 60px;">Date</th>
+            <th id="thTitle" style="padding-left: 50px;">Wages</th>
+            <th id="thTitle" style="padding-left: 35px;">Tips</th>
+            <th id="thTitle" style="padding-left: 45px;">Miles</th>
+            <th id="thTitle" style="padding-left: 25px;">Time (m)</th>
+            <th id="thTitle" style="padding-left: 15px;">MPG</th>
+            <th id="thTitle" style="padding-left: 25px;">Gas Price</th>
+            </tr>
+      </thead>
+    </table>
+    <form id="addItemForm" style="margin-left: 20px;">
+      <input type="text" id="service" style= "width: 100px" value="Uber">
+      <input type="date" id="date">
+      <input type="number" id="wages" style="width: 75px;">
+      <input type="number" id="tips" style="width: 75px;">
+      <input type="number" id="miles" style="width: 75px;">
+      <input type="number" id="time" style="width: 75px;">
+      <input type="number" id="mpg" style="width: 75px;">
+      <input type="number" id="gasPrice" style="width: 75px;">
+      <button id="addButton">Add Entry</button>
+      <button id="clearButton" type="button">Clear Entries</button>
     </form>
-    <header id="listTitle">List</header>
+    <header id="listTitle">Food Delivery Log</header>
     <table id="dataTable">
       <thead>
         <tr>
-            <th id="defaultText">Item</th> 
-            <th id="defaultText">Price</th> 
+            <th id="thMain">Service</th> 
+            <th id="thMain">Date</th>
+            <th id="thMain">Wages</th>
+            <th id="thMain">Tips</th>
+            <th id="thMain">Miles Driven</th>
+            <th id="thMain">Time Driven</th>
+            <th id="thMain">MPG</th>
+            <th id="thMain">Gas Price</th>
+            <th id="thDerived">Total</th>
+            <th id="thDerived">Gas Used</th>
+            <th id="thDerived">Gas Cost</th>
+            <th id="thDerived">Income</th>
+            <th id="thDerived">Hourly Pay</th>
             </tr>
       </thead>
       <tbody id="itemsList">
