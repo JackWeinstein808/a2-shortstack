@@ -1,97 +1,60 @@
-Assignment 2 - Short Stack: Basic Two-tier Web Application using HTML/CSS/JS and Node.js  
-===
+Jack Weinstein
+Site: https://a2-jackweinstein.glitch.me/
+FOOD DELIVERY LOG
+Over the summer I worked Doordash and Uber eats and logged my work in an excel sheet. I decided it would be fun to make my own system to log that data.
 
-Due: March 24th, by 11:59 PM.
+Technical Achievements
+Tech Achievement 1: Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data.
+    This was the easy part as I could submit data to the server using a POST request. To maintain conccurrency on the client side, I created a function fetchItem that uses a GET request to get all of the data from the server to be displayed on the site.
 
-This assignment aims to introduce you to creating a prototype two-tiered web application. 
-Your application will include the use of HTML, CSS, JavaScript, and Node.js functionality, with active communication between the client and the server over the life of a user session.
+Tech Achievement 2 : In addition to a form enabling adding and deleting data on the server, also add the ability to modify existing data.
+    This was much more challenging. This functionalilty works with up to 2 entries stored. Unfortunatly I ran out of time before solving the issue with the edit and delete buttons not properly corresponding with the correct rows when there are 3 or more entries. The problem lies with how the IDs are handled. I will continue to try to fix after the submission deadline.
 
-Baseline Requirements
----
+Tech Achievement 3 : Make 5 calcuations server side and display in number format: 00.00
+    Initially I ran into some issues with only getting a whole number back or getting NaN back for some calculations. I was using parseInt instead of parseFloat which fixed the issue. I also learned to used .toFixed(2) to show only 2 places after the decimal.
 
-There is a large range of application areas and possibilities that meet these baseline requirements. 
-Try to make your application do something useful! A todo list, storing / retrieving high scores for a very simple game... have a little fun with it.
+=============================================================================
+Design/Evaluation Achievements
+Design Achievement 1: User Testing
+    Here are the tasks I came up with:
+    Context: You are working for DoorDash/UberEats and want to log your delivery stats.
+    Task: 
+    Add an entry with the following stats:
+    Service: Dash
+    Date: today’s date
+    Wages: $23.75
+    Tips: $32.59
+    Miles: 30.6
+    Time: 137 minutes
+    MPG: 27
+    Gas Price: $4.74
 
-Your application is required to implement the following functionalities(4 pts each, total 20 pts):
+    Read the calculated data the site displays in the green cells. Does it match the following expected values?
+    Total: $56.34
+    Gas Used: 1.13 gal
+    Gas Cost: $5.36
+    Income: $50.98
+    Hourly Pay: $22.33
 
-- a `Server` which not only serves files, but also maintains a tabular dataset with 3 or more fields related to your application
-- a `Results` functionality which shows the entire dataset residing in the server's memory
-- a `Form/Entry` functionality which allows a user to add or delete data items residing in the server's memory
-- a `Server Logic` which, upon receiving new or modified "incoming" data, includes and uses a function that adds at least one additional derived field to this incoming data before integrating it with the existing dataset
-- the `Derived field` for a new row of data must be computed based on fields already existing in the row. 
-For example, a `todo` dataset with `task`, `priority`, and `creation_date` may generate a new field `deadline` by looking at `creation_date` and `priority`
+    You realized you put the wrong time in, edit the entry to the correct time of 127 minutes. Does it show the correct new hourly pay of $24.09?
 
-Your application is required to demonstrate the use of the following concepts:
+    Feedback: 
+    
+    1. Last name: Caissie
+    2. no problems with functionaility. 1 issue: 
+    "Just went through tasks. Didn't have any issue with understanding the app. Pretty solid layout. Only thing that was unexpected was modifying data. I expected the current field to be modified or a modified tag to be placed near it to signify it was modified."
+    3. This 1 issue was not surprising as this was a goal myself to add in the future. 
+    4. I want the editing fields to be in the table and clear, but it was a little too complex for just 1 week.
 
-HTML (4 pts each, total 16 pts):
-- One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
-- A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with. Alternatively, you can create a single-page app (see Technical Acheivements) but this is not a requirement.
-- All pages should [validate](https://validator.w3.org)
-- If your app contains multple pages, they should all be accessible from the homepage (index.html)
+    1. Last name: Medina
+    2. site froze after editing and deleting an entry
+    "I think everything was clear and easy to use. My only comment is to increase the contrast of the edit text labels.
+    I did have a problem (not sure how to recreate it, i think its how i describe it) where if i went to edit an entry, and then delete an entry, the site kind of froze. I couldnt save changes or clear entries until i reloaded the site ( but I dont think this matters towards getting points on the A2 assignment)"
+    3. this issue is surprissing and I will be attempting to re-create it and find the problem. I did not experience any freezing when running locally.
+    4. yes I plan on making the whole edit form more visually appealing, easier to see and use
 
-CSS (4 pts each, total 16 pts):
-- CSS styling of the primary visual elements in the application
-- Various CSS Selector functionality must be demonstrated:
-    - Element selectors
-    - ID selectors
-    - Class selectors
-- CSS positioning and styling of the primary visual elements in the application:
-    - Use of either a CSS grid or flexbox for layout
-    - Rules defining fonts for all text used; no default fonts! Be sure to use a web safe font or a font from a web service like [Google Fonts](http://fonts.google.com/)
-- CSS defined in a maintainable, readable form, in external stylesheets 
+Design Achievement 2 : Display the data in a table that grows in size with each entry, have the derived data be in different colored cells
+    I used a table in html and in my javascript code added a new row each time an entry was added. I also added an if statement to assign cell colors to the derived fields.
 
-JavaScript (4 pts):
-- At minimum, a small amount of front-end JavaScript to get / fetch data from the server; a sample is provided in this repository.
-
-Node.js (4 pts):
-- An HTTP Server that delivers all necessary files and data for the application, and also creates the required `Derived Fields` in your data. 
-A starting point is provided in this repository.
-
-Deliverables
----
-
-1. (5 pts) Fork the starting project code repo. The starter code in the repo may be used or discarded as needed.
-2. (60 pts, detailed above) Implement your project with the above requirements.
-3. Test your project to make sure that when someone goes to your main page, it displays correctly.
-4. (5 pts) Deploy your project to Glitch, and fill in the appropriate fields in your package.json file.
-5. (5 pts) Ensure that your project has the proper naming scheme `a2-yourGithubUsername` so we can find it.
-6. (5 pts) Modify the README to the specifications below, and delete all of the instructions originally found in this README.
-7. (5 pts) Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
-
-Acheivements
----
-
-Below are suggested technical and design achievements. You can use these to help customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM. Remember, the highest grade you can get on any individual assignment is a 100%.
-
-*Technical*
-- (5 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
-
-- (5 points) In addition to a form enabling adding and deleting data on the server, also add the ability to modify existing data.
-
-*Design/UX*
-- (5 points per person, with a max of 10 points) Test your user interface with other students in the class. Define a specific task for them to complete (ideally something short that takes <10 minutes), and then use the [think-aloud protocol](https://en.wikipedia.org/wiki/Think_aloud_protocol) to obtain feedback on your design (talk-aloud is also fine). Important considerations when designing your study:
-
-1. Make sure you start the study by clearly stating the task that you expect your user to accomplish.
-2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
-3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts, or conduct the studies in person. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
-
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
-
-Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
----
-
-## Your Web Application Title
-Include a very brief summary of your project here. Be sure to include the CSS positioning technique you used, and any required instructions to use your application.
-
-## Technical Achievements
-- **Tech Achievement 1**: Using a combination of...
-
-### Design/Evaluation Achievements
-- **Design Achievement 1**: 
+Design Achievement 3 : Create a form to edit a row and remove the form when finished.
+    To do this, in my JS code I create a div that can be added and removed when edditing data. There is a global variable that idicates if this form is present or not, which makes sure that multiple edit forms can't be added at the same time.

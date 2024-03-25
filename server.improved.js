@@ -11,6 +11,7 @@ const http = require( "http" ),
 let items = []; // Initialize an empty array to store items
 const { v4: uuidv4 } = require('uuid'); 
 
+//handle routes
 const server = http.createServer(function(request, response) {
   if (request.method === "GET") {
       handleGet(request, response);
@@ -31,6 +32,7 @@ const server = http.createServer(function(request, response) {
   }
 });
 
+//return all items to client
 const handleGet = function( request, response ) {
   const filename = dir + request.url.slice( 1 ) 
 
@@ -46,6 +48,7 @@ const handleGet = function( request, response ) {
   }
 }
 
+//add an item to the list and perform calculations for derived fields
 const handlePost = function(request, response) {
   let dataString = "";
 
@@ -64,7 +67,7 @@ const handlePost = function(request, response) {
 
         // Find the newly added item and update it
         const itemIndex = items.findIndex(item => item.id === thisItem.id);
-        if (itemIndex !== -1) items[itemIndex] = calculateItemProperties(thisItem);
+        if (itemIndex !== -1) items[itemIndex] = calculateItemProperties(thisItem); //calculations
 
         console.log("Items:", items); 
         response.writeHead(200, "OK", {"Content-Type": "text/plain"});
@@ -78,6 +81,7 @@ const handlePost = function(request, response) {
   });
 }
 
+//handle clearing off all items
 const handleClear = function(request, response) {
   if (request.method === 'POST') {
       items = []; // Clear the items array
